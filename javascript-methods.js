@@ -31,6 +31,7 @@ Array.prototype.myFilter = function(callbackFn) {
   let index = 0;
 
   for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue;
     if(callbackFn(this[i], i, this)){
       new_array[index] = this[i];
       index += 1
@@ -46,10 +47,8 @@ Array.prototype.myFilter = function(callbackFn) {
 // Does not modify the array
 // 3 parameters: (element, index, array)
 Array.prototype.mySome = function(callbackFn) {
-
   for(let i = 0; i < this.length; i++){
     if(this[i] === undefined) continue;
-
     if(callbackFn(this[i], i, this)){
       return true;
     }
@@ -58,8 +57,17 @@ Array.prototype.mySome = function(callbackFn) {
 };
 
 // EVERY //
+// Test whether all the elements in the array pass the test implemented by the provided function
+// Returns a boolean value
+// 3 parameters: (element, index, array)
 Array.prototype.myEvery = function(callbackFn) {
-  // Place your code here.
+  for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue;
+    if(!callbackFn(this[i], i, this)){
+      return false;
+    }
+  }
+  return true;
 };
 
 // REDUCE //
@@ -136,7 +144,17 @@ Object.myValues = function(object) {
 // console.log([12, 5, 8, 1, 4].mySome(isBiggerThan10)); // true
 // console.log('------------------------------------');
 
-// 
+// EVERY VS MYEVERY
+const isBelowThreshold = (currentValue) => currentValue < 40;
+
+const array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
+// console.log('------------------------------------');
+
+console.log(array1.myEvery(isBelowThreshold));
+// console.log('------------------------------------');
+
 
 
 
