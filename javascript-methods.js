@@ -139,13 +139,14 @@ Array.prototype.myLastIndexOf = function(searchElement) {
 
 // KEYS //
 // Static method that returns an array of a given object's own enumerable string-keyed property names
+// 1 parameter: (obj)
 Object.myKeys = function(object) {
   let new_array = []
   let index = 0;
 
   for(var key in object){
     if(key === undefined) continue;
-    
+
     new_array[index] = key;
     index += 1
   }
@@ -154,8 +155,20 @@ Object.myKeys = function(object) {
 };
 
 // VALUES //
+// Static method that returns an array of a given object's own enumerable string-keyed property values
+// 1 parameter: (obj)
 Object.myValues = function(object) {
-  // Place your code here.
+  let new_array = []
+  let index = 0;
+
+  for(var key in object){
+    if(key === undefined) continue;
+    
+    new_array[index] = object[key];
+    index += 1
+  }
+
+  return new_array
 };
 
 // MAP VS MYMAP //
@@ -373,17 +386,34 @@ Object.myValues = function(object) {
 
 // KEYS VS MYKEYS
 
+// const object1 = {
+//   a: 'somestring',
+//   b: 42,
+//   c: false
+// };
+
+// console.log(Object.keys(object1));
+// // Expected output: Array ["a", "b", "c"]
+// console.log('------------------------------------');
+
+// console.log(Object.myKeys(object1));
+// console.log('------------------------------------');
+
+// ----------------------------------------------------------------------------------------------
+
+// VALUES VS MYVALUES
 const object1 = {
   a: 'somestring',
   b: 42,
   c: false
 };
 
-console.log(Object.keys(object1));
-// Expected output: Array ["a", "b", "c"]
+console.log(Object.values(object1));
+// Expected output: Array ["somestring", 42, false]
 console.log('------------------------------------');
 
-console.log(Object.myKeys(object1));
+console.log(Object.myValues(object1));
+// Expected output: Array ["somestring", 42, false]
 console.log('------------------------------------');
 
 
