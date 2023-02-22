@@ -88,7 +88,6 @@ Array.prototype.myReduce = function(callbackFn) {
   }
 
   for(let i = index; i < this.length; i++){
-    if(this[i] === undefined) continue;
     accumulator = callbackFn(accumulator, this[i], i, this);
   }
 
@@ -96,8 +95,16 @@ Array.prototype.myReduce = function(callbackFn) {
 };
 
 // INCLUDES //
+// Determines whether an array includes a certain value among its entries
+// returns true or false 
+// 2 possible parameters: (searchElement, fromIndex) *implement only searchEelement*
 Array.prototype.myIncludes = function(searchElement) {
-  // Place your code here.
+  for(let i = 0; i < this.length; i ++){
+    if(this[i] == searchElement){
+      return true;
+    }
+  }
+  return false;
 };
 
 // INDEXOF //
@@ -214,36 +221,65 @@ Object.myValues = function(object) {
 
 // array.myReduce(reducer);
 
-const getMax = (a, b) => Math.max(a, b);
+// const getMax = (a, b) => Math.max(a, b);
 
-// callback is invoked for each element in the array starting at index 0
-console.log([1, 100].reduce(getMax, 50)); // 100
-console.log([50].reduce(getMax, 10)); // 50
+// // callback is invoked for each element in the array starting at index 0
+// console.log([1, 100].reduce(getMax, 50)); // 100
+// console.log([50].reduce(getMax, 10)); // 50
 
-// callback is invoked once for element at index 1
-console.log([1, 100].reduce(getMax)); // 100
+// // callback is invoked once for element at index 1
+// console.log([1, 100].reduce(getMax)); // 100
 
-// callback is not invoked
-console.log([50].reduce(getMax)); // 50
+// // callback is not invoked
+// console.log([50].reduce(getMax)); // 50
 
-console.log("--------------------------------")
-// callback is invoked for each element in the array starting at index 0
-console.log([1, 100].myReduce(getMax, 50)); // 100
-console.log([50].myReduce(getMax, 10)); // 50
+// console.log("--------------------------------")
+// // callback is invoked for each element in the array starting at index 0
+// console.log([1, 100].myReduce(getMax, 50)); // 100
+// console.log([50].myReduce(getMax, 10)); // 50
 
-// callback is invoked once for element at index 1
-console.log([1, 100].myReduce(getMax)); // 100
+// // callback is invoked once for element at index 1
+// console.log([1, 100].myReduce(getMax)); // 100
 
-// callback is not invoked
-console.log([50].myReduce(getMax)); // 50
+// // callback is not invoked
+// console.log([50].myReduce(getMax)); // 50
 
-console.log([].myReduce(getMax, 1)); // 1
+// console.log([].myReduce(getMax, 1)); // 1
 
-console.log([].myReduce(getMax)); // TypeError
+// console.log([].myReduce(getMax)); // TypeError
+
+// ----------------------------------------------------------------------------------------------
+
+const array1 = [1, 2, 3];
+
+console.log(array1.includes(2));
+// Expected output: true
+console.log('------------------------------------');
+
+console.log(array1.myIncludes(2));
+// Expected output: true
+
+console.log('------------------------------------');
+
+const pets = ['cat', 'dog', 'bat'];
+
+console.log(pets.includes('cat'));
+// Expected output: true
+
+console.log(pets.includes('at'));
+// Expected output: false
+console.log('------------------------------------');
 
 
+console.log(pets.myIncludes('cat'));
+// Expected output: true
 
+console.log(pets.myIncludes('at'));
+// Expected output: false
+console.log('------------------------------------');
 
+console.log([1, , 3].includes(undefined)); // true
+console.log([1, , 3].myIncludes(undefined)); // true
 
 
 
