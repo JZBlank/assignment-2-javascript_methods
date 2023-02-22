@@ -122,8 +122,19 @@ Array.prototype.myIndexOf = function(searchElement) {
 };
 
 // LASTINDEXOF //
+// Returns the last index at which a given element can be found in array
+// Return -1 if it is not present
+// 2 possible parameters (searchElement, fromIndex) *implement only searchElement*
 Array.prototype.myLastIndexOf = function(searchElement) {
-  // Place your code here.
+  let index = -1;
+
+  for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue;
+    if(this[i] == searchElement){
+      index = i
+    }
+  }
+  return index;
 };
 
 // KEYS //
@@ -292,36 +303,56 @@ Object.myValues = function(object) {
 
 // ----------------------------------------------------------------------------------------------
 
-const array1 = [1, 2, 3];
+// const array1 = [1, 2, 3];
 
-console.log(array1.includes(2));
-// Expected output: true
+// console.log(array1.includes(2));
+// // Expected output: true
+// console.log('------------------------------------');
+
+// console.log(array1.myIncludes(2));
+// // Expected output: true
+
+// console.log('------------------------------------');
+
+// const pets = ['cat', 'dog', 'bat'];
+
+// console.log(pets.includes('cat'));
+// // Expected output: true
+
+// console.log(pets.includes('at'));
+// // Expected output: false
+// console.log('------------------------------------');
+
+
+// console.log(pets.myIncludes('cat'));
+// // Expected output: true
+
+// console.log(pets.myIncludes('at'));
+// // Expected output: false
+// console.log('------------------------------------');
+
+// console.log([1, , 3].includes(undefined)); // true
+// console.log([1, , 3].myIncludes(undefined)); // true
+
+// ----------------------------------------------------------------------------------------------
+
+const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Tiger'];
+
+console.log(animals.lastIndexOf('Dodo'));
+// Expected output: 3
+
+console.log(animals.lastIndexOf('Tiger'));
+// Expected output: 1
+
 console.log('------------------------------------');
 
-console.log(array1.myIncludes(2));
-// Expected output: true
+console.log(animals.myLastIndexOf('Dodo'));
+// Expected output: 3
 
-console.log('------------------------------------');
+console.log(animals.myLastIndexOf('Tiger'));
+// Expected output: 1
 
-const pets = ['cat', 'dog', 'bat'];
-
-console.log(pets.includes('cat'));
-// Expected output: true
-
-console.log(pets.includes('at'));
-// Expected output: false
-console.log('------------------------------------');
-
-
-console.log(pets.myIncludes('cat'));
-// Expected output: true
-
-console.log(pets.myIncludes('at'));
-// Expected output: false
-console.log('------------------------------------');
-
-console.log([1, , 3].includes(undefined)); // true
-console.log([1, , 3].myIncludes(undefined)); // true
+// console.log('------------------------------------');
 
 
 
