@@ -40,8 +40,21 @@ Array.prototype.myFilter = function(callbackFn) {
 };
 
 // SOME //
+// Tests whether at least one element in the array passes the test 
+// implemented by the provided function
+// Returns true if it finds an element for which provided function returns true
+// Does not modify the array
+// 3 parameters: (element, index, array)
 Array.prototype.mySome = function(callbackFn) {
-  // Place your code here.
+
+  for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue;
+
+    if(callbackFn(this[i], i, this)){
+      return true;
+    }
+  }
+  return false;
 };
 
 // EVERY //
@@ -96,7 +109,7 @@ Object.myValues = function(object) {
 
 // ---------------------------------------------------------------------------------------------- //
 
-//FILTER VS MYFILTER
+// FILTER VS MYFILTER
 // const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
 
 // const result = words.filter(word => word.length > 6);
@@ -110,6 +123,20 @@ Object.myValues = function(object) {
 
 // ---------------------------------------------------------------------------------------------- //
 
+// SOME VS MYSOME
+// function isBiggerThan10(element, index, array) {
+//   return element > 10;
+// }
+
+// console.log([2, 5, 8, 1, 4].some(isBiggerThan10)); // false
+// console.log([12, 5, 8, 1, 4].some(isBiggerThan10)); // true
+// console.log('------------------------------------');
+
+// console.log([2, 5, 8, 1, 4].mySome(isBiggerThan10)); // false
+// console.log([12, 5, 8, 1, 4].mySome(isBiggerThan10)); // true
+// console.log('------------------------------------');
+
+// 
 
 
 
