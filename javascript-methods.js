@@ -108,8 +108,17 @@ Array.prototype.myIncludes = function(searchElement) {
 };
 
 // INDEXOF //
+// Determines whether an array includes a certain value among its entries
+// returns true or false 
+// 2 possible parameters: (searchElement, fromIndex) *implement only searchEelement*
 Array.prototype.myIndexOf = function(searchElement) {
-  // Place your code here.
+  for(let i = 0; i < this.length; i ++){
+    if(this[i] === undefined) continue;
+    if(this[i] == searchElement){
+      return true;
+    }
+  }
+  return false;
 };
 
 // LASTINDEXOF //
@@ -250,6 +259,39 @@ Object.myValues = function(object) {
 
 // ----------------------------------------------------------------------------------------------
 
+// const array1 = [1, 2, 3];
+
+// console.log(array1.includes(2));
+// // Expected output: true
+// console.log('------------------------------------');
+
+// console.log(array1.myIncludes(2));
+// Expected output: true
+
+// console.log('------------------------------------');
+
+// const pets = ['cat', 'dog', 'bat'];
+
+// console.log(pets.includes('cat'));
+// // Expected output: true
+
+// console.log(pets.includes('at'));
+// // Expected output: false
+// console.log('------------------------------------');
+
+
+// console.log(pets.myIncludes('cat'));
+// // Expected output: true
+
+// console.log(pets.myIncludes('at'));
+// // Expected output: false
+// console.log('------------------------------------');
+
+// console.log([1, , 3].includes(undefined)); // true
+// console.log([1, , 3].myIncludes(undefined)); // true
+
+// ----------------------------------------------------------------------------------------------
+
 const array1 = [1, 2, 3];
 
 console.log(array1.includes(2));
@@ -280,6 +322,19 @@ console.log('------------------------------------');
 
 console.log([1, , 3].includes(undefined)); // true
 console.log([1, , 3].myIncludes(undefined)); // true
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
