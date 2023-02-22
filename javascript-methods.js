@@ -9,8 +9,19 @@ In this Assignment, we use the prototype constructor to add new methods to the A
 ----------------------------------------------------------*/
 
 // MAP //
+// Creates a new array populated with the results of calling a provided function
+// on every element in the calling array
+// 3 parameters: (element, index, array)
 Array.prototype.myMap = function(callbackFn) {
-  // Place your code here.
+  let new_array = []
+  
+  for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue; // if element at index is null then skip rest of code 
+
+    new_array[i] = callbackFn(this[i], i, this); // new_array[i] is now equal to callbackFn result
+  }
+
+  return new_array
 };
 
 // FILTER //
@@ -57,3 +68,21 @@ Object.myKeys = function(object) {
 Object.myValues = function(object) {
   // Place your code here.
 };
+
+// MAP VS MYMAP //
+
+myArray = [1,4,9,16]
+const map1 = myArray.map(x => x * 2);
+
+console.log("Original 'map' function:")
+console.log(map1)
+console.log('------------------------------------')
+
+const map2 = myArray.myMap(x => x * 2);
+
+console.log("My 'map' function:")
+console.log(map2)
+console.log('------------------------------------')
+
+
+
