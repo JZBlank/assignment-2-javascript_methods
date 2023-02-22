@@ -71,8 +71,28 @@ Array.prototype.myEvery = function(callbackFn) {
 };
 
 // REDUCE //
+// method executes a user-supplied "reducer" callback function on each element of the array,
+// in order, passing in the return value from the calculation on the preceding element.
+// The final result of running the reducer across all elements of the array is a single value.
+// First time callback is run, there is no previous return value, can be supplied
+// 4 parameters: (accumulator, currentValue, currentIndex, array)
 Array.prototype.myReduce = function(callbackFn) {
-  // Place your code here.
+  index = 0;
+
+  if(typeof initialValue === 'undefined'){
+    index = 1;
+    accumulator = this[0];
+  }
+  else{
+    accumulator = initialValue;
+  }
+
+  for(let i = index; i < this.length; i++){
+    if(this[i] === undefined) continue;
+    accumulator = callbackFn(accumulator, this[i], i, this);
+  }
+
+  return accumulator;
 };
 
 // INCLUDES //
@@ -144,16 +164,84 @@ Object.myValues = function(object) {
 // console.log([12, 5, 8, 1, 4].mySome(isBiggerThan10)); // true
 // console.log('------------------------------------');
 
+// ---------------------------------------------------------------------------------------------- //
+
 // EVERY VS MYEVERY
-const isBelowThreshold = (currentValue) => currentValue < 40;
+// const isBelowThreshold = (currentValue) => currentValue < 40;
 
-const array1 = [1, 30, 39, 29, 10, 13];
+// const array1 = [1, 30, 39, 29, 10, 13];
 
-console.log(array1.every(isBelowThreshold));
+// console.log(array1.every(isBelowThreshold));
 // console.log('------------------------------------');
 
-console.log(array1.myEvery(isBelowThreshold));
+// console.log(array1.myEvery(isBelowThreshold));
 // console.log('------------------------------------');
+
+// ---------------------------------------------------------------------------------------------- //
+
+// REDUCE VS MYREDUCE
+// const array1 = [1, 2, 3, 4];
+
+// // 0 + 1 + 2 + 3 + 4
+// const initialValue = 0;
+// const sumWithInitial = array1.reduce(
+//   (accumulator, currentValue) => accumulator + currentValue, initialValue
+// );
+
+// const sumWithInitial2 = array1.myReduce(
+//   (accumulator, currentValue) => accumulator + currentValue, initialValue
+// );
+
+
+// console.log(sumWithInitial);
+// console.log('------------------------------------');
+
+// console.log(sumWithInitial2);
+// console.log('------------------------------------');
+
+// const array = [15, 16, 17, 18, 19];
+
+// function reducer(accumulator, currentValue, index) {
+//   const returns = accumulator + currentValue;
+//   console.log(
+//     `accumulator: ${accumulator}, currentValue: ${currentValue}, index: ${index}, returns: ${returns}`,
+//   );
+//   return returns;
+// }
+
+// array.reduce(reducer);
+// console.log('------------------------------------');
+
+// array.myReduce(reducer);
+
+const getMax = (a, b) => Math.max(a, b);
+
+// callback is invoked for each element in the array starting at index 0
+console.log([1, 100].reduce(getMax, 50)); // 100
+console.log([50].reduce(getMax, 10)); // 50
+
+// callback is invoked once for element at index 1
+console.log([1, 100].reduce(getMax)); // 100
+
+// callback is not invoked
+console.log([50].reduce(getMax)); // 50
+
+console.log("--------------------------------")
+// callback is invoked for each element in the array starting at index 0
+console.log([1, 100].myReduce(getMax, 50)); // 100
+console.log([50].myReduce(getMax, 10)); // 50
+
+// callback is invoked once for element at index 1
+console.log([1, 100].myReduce(getMax)); // 100
+
+// callback is not invoked
+console.log([50].myReduce(getMax)); // 50
+
+console.log([].myReduce(getMax, 1)); // 1
+
+console.log([].myReduce(getMax)); // TypeError
+
+
 
 
 
