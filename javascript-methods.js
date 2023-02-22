@@ -138,8 +138,19 @@ Array.prototype.myLastIndexOf = function(searchElement) {
 };
 
 // KEYS //
+// Static method that returns an array of a given object's own enumerable string-keyed property names
 Object.myKeys = function(object) {
-  // Place your code here.
+  let new_array = []
+  let index = 0;
+
+  for(var key in object){
+    if(key === undefined) continue;
+    
+    new_array[index] = key;
+    index += 1
+  }
+
+  return new_array;
 };
 
 // VALUES //
@@ -270,6 +281,8 @@ Object.myValues = function(object) {
 
 // ----------------------------------------------------------------------------------------------
 
+// INCLUDES VS MYINCLUDES
+
 // const array1 = [1, 2, 3];
 
 // console.log(array1.includes(2));
@@ -336,23 +349,42 @@ Object.myValues = function(object) {
 
 // ----------------------------------------------------------------------------------------------
 
-const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Tiger'];
+// LASTINDEXOF VS MYLASTINDEXOF
 
-console.log(animals.lastIndexOf('Dodo'));
-// Expected output: 3
+// const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Tiger'];
 
-console.log(animals.lastIndexOf('Tiger'));
-// Expected output: 1
+// console.log(animals.lastIndexOf('Dodo'));
+// // Expected output: 3
 
-console.log('------------------------------------');
+// console.log(animals.lastIndexOf('Tiger'));
+// // Expected output: 1
 
-console.log(animals.myLastIndexOf('Dodo'));
-// Expected output: 3
+// console.log('------------------------------------');
 
-console.log(animals.myLastIndexOf('Tiger'));
+// console.log(animals.myLastIndexOf('Dodo'));
+// // Expected output: 3
+
+// console.log(animals.myLastIndexOf('Tiger'));
 // Expected output: 1
 
 // console.log('------------------------------------');
+
+// ----------------------------------------------------------------------------------------------
+
+// KEYS VS MYKEYS
+
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.keys(object1));
+// Expected output: Array ["a", "b", "c"]
+console.log('------------------------------------');
+
+console.log(Object.myKeys(object1));
+console.log('------------------------------------');
 
 
 
