@@ -17,16 +17,26 @@ Array.prototype.myMap = function(callbackFn) {
   
   for(let i = 0; i < this.length; i++){
     if(this[i] === undefined) continue; // if element at index is null then skip rest of code 
-
     new_array[i] = callbackFn(this[i], i, this); // new_array[i] is now equal to callbackFn result
   }
-
-  return new_array
+  return new_array;
 };
 
 // FILTER //
+// Creates a shallow copy of a portion of a given array, filtered down to just the elements
+// from given array that pass test implemented by provided function
+// 3 parameters: (element, index, array)
 Array.prototype.myFilter = function(callbackFn) {
-  // Place your code here.
+  let new_array = []
+  let index = 0;
+
+  for(let i = 0; i < this.length; i++){
+    if(callbackFn(this[i], i, this)){
+      new_array[index] = this[i];
+      index += 1
+    }
+  }
+  return new_array;
 };
 
 // SOME //
@@ -71,18 +81,45 @@ Object.myValues = function(object) {
 
 // MAP VS MYMAP //
 
-myArray = [1,4,9,16]
-const map1 = myArray.map(x => x * 2);
+// myArray = [1,4,9,16]
+// const map1 = myArray.map(x => x * 2);
 
-console.log("Original 'map' function:")
-console.log(map1)
-console.log('------------------------------------')
+// console.log("Original 'map' function:")
+// console.log(map1)
+// console.log('------------------------------------')
 
-const map2 = myArray.myMap(x => x * 2);
+// const map2 = myArray.myMap(x => x * 2);
 
-console.log("My 'map' function:")
-console.log(map2)
-console.log('------------------------------------')
+// console.log("My 'map' function:")
+// console.log(map2)
+// console.log('------------------------------------')
+
+// ---------------------------------------------------------------------------------------------- //
+
+//FILTER VS MYFILTER
+// const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+
+// const result = words.filter(word => word.length > 6);
+// console.log(result);
+// console.log('------------------------------------');
+
+// const result2 = words.myFilter(word => word.length > 6);
+// console.log(result2);
+// console.log('------------------------------------');
+// const fruits = ["apple", "banana", "grapes", "mango", "orange"];
+
+// ---------------------------------------------------------------------------------------------- //
+
+
+
+
+
+
+
+
+
+
+
 
 
 
