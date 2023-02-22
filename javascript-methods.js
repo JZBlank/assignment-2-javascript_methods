@@ -126,7 +126,15 @@ Array.prototype.myIndexOf = function(searchElement) {
 // Return -1 if it is not present
 // 2 possible parameters (searchElement, fromIndex) *implement only searchElement*
 Array.prototype.myLastIndexOf = function(searchElement) {
-  // Place your code here.
+  let index = -1;
+
+  for(let i = 0; i < this.length; i++){
+    if(this[i] === undefined) continue;
+    if(this[i] == searchElement){
+      index = i
+    }
+  }
+  return index;
 };
 
 // KEYS //
@@ -328,7 +336,7 @@ Object.myValues = function(object) {
 
 // ----------------------------------------------------------------------------------------------
 
-const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
+const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Tiger'];
 
 console.log(animals.lastIndexOf('Dodo'));
 // Expected output: 3
