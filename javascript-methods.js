@@ -12,8 +12,11 @@ In this Assignment, we use the prototype constructor to add new methods to the A
 // Creates a new array populated with the results of calling a provided function
 // on every element in the calling array
 // 3 parameters: (element, index, array)
+
+// callbackFn is NOT invoked for array indexes that 
+// do not have assigned values
 Array.prototype.myMap = function(callbackFn) {
-  let new_array = []
+  let new_array = [];
   
   for(let i = 0; i < this.length; i++){
     if(this[i] === undefined) continue; // if element at index is null then skip rest of code 
@@ -26,15 +29,18 @@ Array.prototype.myMap = function(callbackFn) {
 // Creates a shallow copy of a portion of a given array, filtered down to just the elements
 // from given array that pass test implemented by provided function
 // 3 parameters: (element, index, array)
+
+// callbackFn is NOT invoked for array indexes that 
+// do not have assigned values
 Array.prototype.myFilter = function(callbackFn) {
-  let new_array = []
+  let new_array = [];
   let index = 0;
 
   for(let i = 0; i < this.length; i++){
     if(this[i] === undefined) continue;
     if(callbackFn(this[i], i, this)){
       new_array[index] = this[i];
-      index += 1
+      index += 1;
     }
   }
   return new_array;
@@ -76,6 +82,8 @@ Array.prototype.myEvery = function(callbackFn) {
 // The final result of running the reducer across all elements of the array is a single value.
 // First time callback is run, there is no previous return value, can be supplied
 // 4 parameters: (accumulator, currentValue, currentIndex, array)
+
+// skips missing elements in sparse arrays but does not skip undefined values
 Array.prototype.myReduce = function(callbackFn) {
   index = 0;
 
@@ -85,6 +93,13 @@ Array.prototype.myReduce = function(callbackFn) {
   }
   else{
     accumulator = initialValue;
+  }
+
+  if(this.length == 1 && typeof initialValue !== 'undefined'){ // edge case where length == 1, solo value returned without calling callbackFn
+    return accumulator;
+  }
+  else if(this.length == 0 && typeof initialValue === 'undefined'){
+    return TypeError("Reduce of empty array with no initial value", "javascript-methods.js");
   }
 
   for(let i = index; i < this.length; i++){
@@ -98,6 +113,8 @@ Array.prototype.myReduce = function(callbackFn) {
 // Determines whether an array includes a certain value among its entries
 // returns true or false 
 // 2 possible parameters: (searchElement, fromIndex) *implement only searchEelement*
+
+// iterates empty slots as if they have the value undefined
 Array.prototype.myIncludes = function(searchElement) {
   for(let i = 0; i < this.length; i ++){
     if(this[i] == searchElement){
@@ -108,17 +125,17 @@ Array.prototype.myIncludes = function(searchElement) {
 };
 
 // INDEXOF //
-// Determines whether an array includes a certain value among its entries
-// returns true or false 
-// 2 possible parameters: (searchElement, fromIndex) *implement only searchEelement*
+// Returns the first index at which a given element can be found in the array
+// or -1 if it is not present
+// 2 possible parameters: (searchElement, fromIndex) *implement only searchElement*
 Array.prototype.myIndexOf = function(searchElement) {
   for(let i = 0; i < this.length; i ++){
     if(this[i] === undefined) continue;
     if(this[i] == searchElement){
-      return true;
+      return i;
     }
   }
-  return false;
+  return -1;
 };
 
 // LASTINDEXOF //
@@ -131,7 +148,7 @@ Array.prototype.myLastIndexOf = function(searchElement) {
   for(let i = 0; i < this.length; i++){
     if(this[i] === undefined) continue;
     if(this[i] == searchElement){
-      index = i
+      index = i;
     }
   }
   return index;
@@ -141,14 +158,14 @@ Array.prototype.myLastIndexOf = function(searchElement) {
 // Static method that returns an array of a given object's own enumerable string-keyed property names
 // 1 parameter: (obj)
 Object.myKeys = function(object) {
-  let new_array = []
+  let new_array = [];
   let index = 0;
 
   for(var key in object){
     if(key === undefined) continue;
 
     new_array[index] = key;
-    index += 1
+    index += 1;
   }
 
   return new_array;
@@ -158,285 +175,15 @@ Object.myKeys = function(object) {
 // Static method that returns an array of a given object's own enumerable string-keyed property values
 // 1 parameter: (obj)
 Object.myValues = function(object) {
-  let new_array = []
+  let new_array = [];
   let index = 0;
 
   for(var key in object){
     if(key === undefined) continue;
     
     new_array[index] = object[key];
-    index += 1
+    index += 1;
   }
 
-  return new_array
+  return new_array;
 };
-
-// MAP VS MYMAP //
-
-// myArray = [1,4,9,16]
-// const map1 = myArray.map(x => x * 2);
-
-// console.log("Original 'map' function:")
-// console.log(map1)
-// console.log('------------------------------------')
-
-// const map2 = myArray.myMap(x => x * 2);
-
-// console.log("My 'map' function:")
-// console.log(map2)
-// console.log('------------------------------------')
-
-// ---------------------------------------------------------------------------------------------- //
-
-// FILTER VS MYFILTER
-// const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-
-// const result = words.filter(word => word.length > 6);
-// console.log(result);
-// console.log('------------------------------------');
-
-// const result2 = words.myFilter(word => word.length > 6);
-// console.log(result2);
-// console.log('------------------------------------');
-// const fruits = ["apple", "banana", "grapes", "mango", "orange"];
-
-// ---------------------------------------------------------------------------------------------- //
-
-// SOME VS MYSOME
-// function isBiggerThan10(element, index, array) {
-//   return element > 10;
-// }
-
-// console.log([2, 5, 8, 1, 4].some(isBiggerThan10)); // false
-// console.log([12, 5, 8, 1, 4].some(isBiggerThan10)); // true
-// console.log('------------------------------------');
-
-// console.log([2, 5, 8, 1, 4].mySome(isBiggerThan10)); // false
-// console.log([12, 5, 8, 1, 4].mySome(isBiggerThan10)); // true
-// console.log('------------------------------------');
-
-// ---------------------------------------------------------------------------------------------- //
-
-// EVERY VS MYEVERY
-// const isBelowThreshold = (currentValue) => currentValue < 40;
-
-// const array1 = [1, 30, 39, 29, 10, 13];
-
-// console.log(array1.every(isBelowThreshold));
-// console.log('------------------------------------');
-
-// console.log(array1.myEvery(isBelowThreshold));
-// console.log('------------------------------------');
-
-// ---------------------------------------------------------------------------------------------- //
-
-// REDUCE VS MYREDUCE
-// const array1 = [1, 2, 3, 4];
-
-// // 0 + 1 + 2 + 3 + 4
-// const initialValue = 0;
-// const sumWithInitial = array1.reduce(
-//   (accumulator, currentValue) => accumulator + currentValue, initialValue
-// );
-
-// const sumWithInitial2 = array1.myReduce(
-//   (accumulator, currentValue) => accumulator + currentValue, initialValue
-// );
-
-
-// console.log(sumWithInitial);
-// console.log('------------------------------------');
-
-// console.log(sumWithInitial2);
-// console.log('------------------------------------');
-
-// const array = [15, 16, 17, 18, 19];
-
-// function reducer(accumulator, currentValue, index) {
-//   const returns = accumulator + currentValue;
-//   console.log(
-//     `accumulator: ${accumulator}, currentValue: ${currentValue}, index: ${index}, returns: ${returns}`,
-//   );
-//   return returns;
-// }
-
-// array.reduce(reducer);
-// console.log('------------------------------------');
-
-// array.myReduce(reducer);
-
-// const getMax = (a, b) => Math.max(a, b);
-
-// // callback is invoked for each element in the array starting at index 0
-// console.log([1, 100].reduce(getMax, 50)); // 100
-// console.log([50].reduce(getMax, 10)); // 50
-
-// // callback is invoked once for element at index 1
-// console.log([1, 100].reduce(getMax)); // 100
-
-// // callback is not invoked
-// console.log([50].reduce(getMax)); // 50
-
-// console.log("--------------------------------")
-// // callback is invoked for each element in the array starting at index 0
-// console.log([1, 100].myReduce(getMax, 50)); // 100
-// console.log([50].myReduce(getMax, 10)); // 50
-
-// // callback is invoked once for element at index 1
-// console.log([1, 100].myReduce(getMax)); // 100
-
-// // callback is not invoked
-// console.log([50].myReduce(getMax)); // 50
-
-// console.log([].myReduce(getMax, 1)); // 1
-
-// console.log([].myReduce(getMax)); // TypeError
-
-// ----------------------------------------------------------------------------------------------
-
-// INCLUDES VS MYINCLUDES
-
-// const array1 = [1, 2, 3];
-
-// console.log(array1.includes(2));
-// // Expected output: true
-// console.log('------------------------------------');
-
-// console.log(array1.myIncludes(2));
-// Expected output: true
-
-// console.log('------------------------------------');
-
-// const pets = ['cat', 'dog', 'bat'];
-
-// console.log(pets.includes('cat'));
-// // Expected output: true
-
-// console.log(pets.includes('at'));
-// // Expected output: false
-// console.log('------------------------------------');
-
-
-// console.log(pets.myIncludes('cat'));
-// // Expected output: true
-
-// console.log(pets.myIncludes('at'));
-// // Expected output: false
-// console.log('------------------------------------');
-
-// console.log([1, , 3].includes(undefined)); // true
-// console.log([1, , 3].myIncludes(undefined)); // true
-
-// ----------------------------------------------------------------------------------------------
-
-// const array1 = [1, 2, 3];
-
-// console.log(array1.includes(2));
-// // Expected output: true
-// console.log('------------------------------------');
-
-// console.log(array1.myIncludes(2));
-// // Expected output: true
-
-// console.log('------------------------------------');
-
-// const pets = ['cat', 'dog', 'bat'];
-
-// console.log(pets.includes('cat'));
-// // Expected output: true
-
-// console.log(pets.includes('at'));
-// // Expected output: false
-// console.log('------------------------------------');
-
-
-// console.log(pets.myIncludes('cat'));
-// // Expected output: true
-
-// console.log(pets.myIncludes('at'));
-// // Expected output: false
-// console.log('------------------------------------');
-
-// console.log([1, , 3].includes(undefined)); // true
-// console.log([1, , 3].myIncludes(undefined)); // true
-
-// ----------------------------------------------------------------------------------------------
-
-// LASTINDEXOF VS MYLASTINDEXOF
-
-// const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo', 'Tiger'];
-
-// console.log(animals.lastIndexOf('Dodo'));
-// // Expected output: 3
-
-// console.log(animals.lastIndexOf('Tiger'));
-// // Expected output: 1
-
-// console.log('------------------------------------');
-
-// console.log(animals.myLastIndexOf('Dodo'));
-// // Expected output: 3
-
-// console.log(animals.myLastIndexOf('Tiger'));
-// Expected output: 1
-
-// console.log('------------------------------------');
-
-// ----------------------------------------------------------------------------------------------
-
-// KEYS VS MYKEYS
-
-// const object1 = {
-//   a: 'somestring',
-//   b: 42,
-//   c: false
-// };
-
-// console.log(Object.keys(object1));
-// // Expected output: Array ["a", "b", "c"]
-// console.log('------------------------------------');
-
-// console.log(Object.myKeys(object1));
-// console.log('------------------------------------');
-
-// ----------------------------------------------------------------------------------------------
-
-// VALUES VS MYVALUES
-const object1 = {
-  a: 'somestring',
-  b: 42,
-  c: false
-};
-
-console.log(Object.values(object1));
-// Expected output: Array ["somestring", 42, false]
-console.log('------------------------------------');
-
-console.log(Object.myValues(object1));
-// Expected output: Array ["somestring", 42, false]
-console.log('------------------------------------');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
